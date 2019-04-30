@@ -49,22 +49,13 @@ public class WinnerController {
         }
 
         if (currentFigure == null) return false;
-        if (currentFigure != nextFigure) return false;
-        return check(field,nextPoint,pointGenerator);
 
-        try {
-            if (field.getFigure(p1) == null) return false;
-            if (field.getFigure(p1) == field.getFigure(p2) &&
-                    field.getFigure(p1) == field.getFigure(p3))
-                return true;
-        } catch (InvalidPointException e) {
-            e.printStackTrace();
-        }
-        return false;
+        if (currentFigure != nextFigure) return false;
+
+        return check(field,nextPoint,pointGenerator);
     }
 
     private interface IPointGenerator {
         Point next(final Point point);
     }
-
 }
