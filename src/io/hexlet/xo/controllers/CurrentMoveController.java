@@ -10,7 +10,7 @@ public class CurrentMoveController {
 
 
 
-    public Figure currentMove(final Field field) {
+    public Figure currentMove(final Field<Figure> field) {
         int countFigure = 0;
         for (int x = 0; x < field.getSize();x++){
            countFigure += countFigurresInTheRow(field,x);
@@ -25,7 +25,7 @@ public class CurrentMoveController {
         return Figure.O;
     }
 
-    private int countFigurresInTheRow(final Field field,final int row){
+    private int countFigurresInTheRow(final Field<Figure> field,final int row){
         int countFigure = 0;
         for (int x = 0; x < field.getSize(); x++) {
             try {

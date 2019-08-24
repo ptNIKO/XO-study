@@ -1,31 +1,34 @@
 package io.hexlet.xo.model;
 
-import io.hexlet.xo.model.Exception.AlreadyOccupiedException;
 import io.hexlet.xo.model.Exception.InvalidPointException;
 
 import java.awt.*;
 
-public class Field {
-    private static final int FIELD_SIZE = 3;
+public class Field<T> {
 
     private static final int MIN_CORDINATE = 0;
 
-    private static final int MAX_CORDINATE = FIELD_SIZE;
+    private final T[][] field;
 
-    private final Figure[][] field = new Figure[FIELD_SIZE][FIELD_SIZE];
+    private final int fieldSize;
 
-    public int getSize(){
-        return FIELD_SIZE;
+    public Field(final int fieldSize) {
+        this.fieldSize = fieldSize;
+        field = (T[][]) new Object[fieldSize][fieldSize];
     }
 
-    public Figure getFigure(final Point point) throws InvalidPointException {
+    public int getSize(){
+        return fieldSize;
+    }
+
+    public T getFigure(final Point point) throws InvalidPointException {
         if (!checkPoint(point)){
             throw new InvalidPointException();
         }
         return field[point.x][point.y];
     }
 
-    public void setFigure(final Point point,final Figure figure) throws InvalidPointException {
+    public void setFigure(final Point point,final T figure) throws InvalidPointException {
         if (!checkPoint(point)){
             throw new InvalidPointException();
         }
@@ -34,10 +37,10 @@ public class Field {
     }
 
     private boolean checkPoint (final Point point){
-        return checkCordinate(point.x) && checkCordinate(point.y);
+        return checkCordinate(point.x,field.length) && checkCordinate(point.y,field[point.x].length);
     }
 
-    private boolean checkCordinate(final int cordinate){
-        return cordinate >= MIN_CORDINATE && cordinate < MAX_CORDINATE;
+    private boolean checkCordinate(final int cordinate,final int maxCordinate){
+        return cordinate >= MIN_CORDINATE && cordinate < field.length;
     }
 }
